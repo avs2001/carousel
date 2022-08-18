@@ -33,10 +33,10 @@ jobs:
         with:
           name: dist
           path: ./dist
-      - run: ls -la ./dist
       - uses: actions/setup-node@v3
         with:
           registry-url: https://npm.pkg.github.com/
-      - run: npm publish
+#      - run: npm publish
+      - run: ls -la ./dist
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
