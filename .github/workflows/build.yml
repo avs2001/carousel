@@ -24,9 +24,6 @@ jobs:
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /home/runner/work/carousel/carousel/dist/carousel
     permissions:
       packages: write
       contents: read
