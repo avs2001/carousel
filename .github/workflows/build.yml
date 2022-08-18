@@ -36,9 +36,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           registry-url: https://npm.pkg.github.com/
-      - run:
-          working-directory: ./dist/carousel
       - run: npm publish
+        working-directory: ./dist/carousel
       - run: ls -la ./dist/carousel
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
