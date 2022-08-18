@@ -35,6 +35,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: homework
+      - run: ls -ls
       - uses: actions/setup-node@v3
         with:
           registry-url: https://npm.pkg.github.com/
