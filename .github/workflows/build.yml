@@ -14,21 +14,19 @@ jobs:
           node-version: 14
       - run: npm ci
       - run: npm run build
-      - name: Upload a Build Artifact
+      - name: Upload distribution folder
         uses: actions/upload-artifact@v3.1.0
         with:
-          # Artifact name
           name: dist
-          # A file, directory or wildcard pattern that describes what to upload
           path: ./dist
-  publish-gpr:
+  publish:
     needs: build
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     steps:
-      - name: Download math result for job 2
+      - name: Download distribution folder
         uses: actions/download-artifact@v3
         with:
           name: dist
@@ -37,6 +35,8 @@ jobs:
         with:
           registry-url: https://npm.pkg.github.com/
       - run: ls -la ./dist/carousel
+      - run: npm version patch
+        working-directory: ./dist/carousel
       - run: npm publish
         working-directory: ./dist/carousel
         env:
