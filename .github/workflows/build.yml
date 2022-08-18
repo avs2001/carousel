@@ -2,7 +2,7 @@ name: Angular Package
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -21,13 +21,15 @@ jobs:
     permissions:
       packages: write
       contents: read
+    defaults:
+      - run:
+          working-directory: ./dist/carousel
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 14
           registry-url: https://npm.pkg.github.com/
-      - working-directory: ./dist/carousel
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
