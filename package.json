@@ -1,5 +1,5 @@
 {
-  "name": "carousel",
+  "name": "@avs2001/carousel",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

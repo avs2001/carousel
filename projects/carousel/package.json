@@ -1,5 +1,5 @@
 {
-  "name": "carousel",
+  "name": "@avs2001/carousel",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^14.0.0",
@@ -11,6 +11,8 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:avs2001/carousel.git"
+  },
+  "publishConfig": {
+    "@avs2001:registry": "https://npm.pkg.github.com"
   }
-
 }
