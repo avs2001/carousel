@@ -18,9 +18,9 @@ jobs:
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./dist/carousel
+#    defaults:
+#      run:
+#        working-directory: dist/carousel
     permissions:
       packages: write
       contents: read
@@ -30,6 +30,7 @@ jobs:
         with:
           node-version: 14
           registry-url: https://npm.pkg.github.com/
+      - run: ls -la
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
