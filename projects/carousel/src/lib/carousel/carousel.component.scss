@@ -1,0 +1,40 @@
+:host {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.wrapper {
+  position: sticky;
+  left: 0;
+  right: 0;
+  min-width: 100%;
+  overflow: hidden;
+}
+
+@mixin transition($param, $speed: var(--duration, 300ms)) {
+  transition-property: #{$param};
+  transition-duration: #{$speed};
+  transition-timing-function: ease-in-out;
+}
+
+.items {
+  display: flex;
+  align-items: center;
+
+  :host.animate & {
+    @include transition(transform)
+  }
+}
+
+.item {
+  padding: 0 1.25rem;
+  flex: 1;
+  min-width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+}
+
+

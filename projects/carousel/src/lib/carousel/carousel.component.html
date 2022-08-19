@@ -1,0 +1,11 @@
+<ng-container *ngIf="items.changes | async"></ng-container>
+<div class="wrapper" (appCarouselAutoScroll)="onAutoscroll()">
+  <div class="items" [style.transform]="transform">
+    <fieldset
+      *ngFor="let item of items; let i = index"
+      class="item"
+      [ngStyle]="getStyle(display)">
+      <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+    </fieldset>
+  </div>
+</div>
