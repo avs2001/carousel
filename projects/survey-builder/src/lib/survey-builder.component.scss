@@ -1,0 +1,27 @@
+.survey-builder {
+  display: flex;
+  gap: 2rem;
+}
+
+.question-editor,
+.preview {
+  flex: 1;
+}
+
+.question-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.new-question {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.preview-item {
+  margin-bottom: 0.5rem;
+}
