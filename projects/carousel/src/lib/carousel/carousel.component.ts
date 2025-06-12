@@ -5,7 +5,10 @@ import {
   ContentChildren,
   HostBinding,
   Inject,
-  Input,
+  input,
+  Signal,
+  signal,
+  computed,
   QueryList
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -30,8 +33,8 @@ import {CarouselDirective} from './carousel.directive';
   ]
 })
 export class CarouselComponent {
-  @Input() display = 1;
-  @Input() index = 0;
+  readonly display = input<number>(1);
+  readonly index = input<number>(0);
 
   @ContentChildren(CAROUSEL_ITEM)
   readonly items: QueryList<CarouseItem> = new QueryList<CarouseItem>();
@@ -45,40 +48,40 @@ export class CarouselComponent {
   ) {
   }
 
-  get transform(): string {
-    const x = this.calcTranslate;
-    return `translateX(${100 * x * this.display}%)`;
-  }
+  readonly transform = computed(() => {
+    const x = this.calcTranslate();
+    return `translateX(${100 * x * this.display()}%)`;
+  });
 
-  private get calcTranslate(): number {
-    return -this.index / this.display;
+  private calcTranslate(): number {
+    return -this.index() / this.display();
   }
 
   next() {
-    this.updateIndex(this.index + 1);
+    this.updateIndex(this.index() + 1);
   }
 
   prev() {
-    this.updateIndex(this.index - 1);
+    this.updateIndex(this.index() - 1);
   }
 
 
   onScroll(delta: number) {
-    this.updateIndex(this.index + delta);
+    this.updateIndex(this.index() + delta);
   }
 
   onAutoscroll(): void {
     console.log('ON AUTOSCROLL');
-    this.updateIndex(this.index === this.items.length - 1 ? 0 : this.index + 1);
+    this.updateIndex(this.index() === this.items.length - 1 ? 0 : this.index() + 1);
   }
 
   private updateIndex(index: number) {
-    const screens = Math.ceil(this.items.length / this.display);
-    if (screens - 1 === this.index) {
-      this.index = 0;
+    const screens = Math.ceil(this.items.length / this.display());
+    if (screens - 1 === this.index()) {
+      this.index.set(0);
       return;
     }
-    this.index = clamp(index, 0, screens - 1);
+    this.index.set(clamp(index, 0, screens - 1));
     this.changeDetectorRef.markForCheck();
   }
 

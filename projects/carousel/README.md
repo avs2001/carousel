@@ -1,6 +1,6 @@
 # Carousel
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
 
 ## Code scaffolding
 
@@ -31,7 +31,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  index = 0;
+  index = signal(0);
   items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 

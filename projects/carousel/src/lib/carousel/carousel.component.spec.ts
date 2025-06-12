@@ -47,15 +47,15 @@ describe('CarouselComponent', () => {
 
   it('should advance to next and previous item', () => {
     component.next();
-    expect(component.index).toBe(1);
+    expect(component.index()).toBe(1);
     component.prev();
-    expect(component.index).toBe(0);
+    expect(component.index()).toBe(0);
   });
 
   it('should wrap around when reaching the end', () => {
-    component.index = 2;
+    component.index.set(2);
     fixture.detectChanges();
     component.next();
-    expect(component.index).toBe(0);
+    expect(component.index()).toBe(0);
   });
 });
