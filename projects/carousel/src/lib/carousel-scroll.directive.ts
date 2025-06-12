@@ -2,7 +2,8 @@ import {Directive, ElementRef, Inject, Output} from '@angular/core';
 import {filter, fromEvent, map, tap, throttleTime} from "rxjs";
 
 @Directive({
-  selector: '[appCarouselScroll]'
+  selector: '[appCarouselScroll]',
+  standalone: true
 })
 export class CarouselScrollDirective {
   @Output()

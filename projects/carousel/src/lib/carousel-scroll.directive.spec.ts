@@ -4,7 +4,9 @@ import { By } from '@angular/platform-browser';
 import { CarouselScrollDirective } from './carousel-scroll.directive';
 
 @Component({
-  template: `<div appCarouselScroll></div>`
+  standalone: true,
+  template: `<div appCarouselScroll></div>`,
+  imports: [CarouselScrollDirective]
 })
 class HostComponent {}
 
@@ -14,7 +16,7 @@ describe('CarouselScrollDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HostComponent, CarouselScrollDirective]
+      imports: [HostComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HostComponent);

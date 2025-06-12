@@ -4,7 +4,8 @@ import {Observable} from "rxjs";
 
 @Directive({
   selector: '[appCarouselAutoScroll]',
-  outputs: ['appCarouselAutoScroll']
+  outputs: ['appCarouselAutoScroll'],
+  standalone: true
 })
 export class CarouselAutoScrollDirective {
 

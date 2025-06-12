@@ -8,6 +8,7 @@ export interface CarouseItem {
 
 @Directive({
   selector: '[appCarouselItem]',
+  standalone: true,
   providers: [
     {provide: CAROUSEL_ITEM, useExisting: CarouselItemDirective}
   ]
