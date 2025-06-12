@@ -5,6 +5,7 @@ import {CarouselItemDirective} from 'carousel';
 import {CarouselScrollDirective} from 'carousel';
 import {CarouselAutoScrollDirective} from 'carousel';
 import {CarouselDirective} from 'carousel';
+import { SurveyBuilderComponent } from 'survey-builder';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import {CarouselDirective} from 'carousel';
     CarouselScrollDirective,
     CarouselAutoScrollDirective,
     CarouselDirective,
+    SurveyBuilderComponent,
   ]
 })
 export class AppComponent {
