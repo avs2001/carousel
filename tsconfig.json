@@ -6,6 +6,9 @@
     "paths": {
       "carousel": [
         "dist/carousel"
+      ],
+      "survey-builder": [
+        "dist/survey-builder"
       ]
     },
     "outDir": "./dist/out-tsc",
