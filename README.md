@@ -18,6 +18,18 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
+## Survey Builder
+
+The library also includes a Survey Builder component located under `projects/survey-builder`.
+Install dependencies and build the library:
+
+```bash
+npm install
+ng build survey-builder
+```
+
+Include `<lib-survey-builder>` in your standalone Angular components to allow administrators to create surveys. The builder supports editing, drag-and-drop ordering, duplication, advanced validation and import/export of survey definitions.
+
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
