@@ -1,0 +1,71 @@
+<div class="survey-builder">
+  <div class="question-editor">
+    <h3>Questions</h3>
+    <div *ngFor="let q of questions; index as i" class="question-item">
+      <span>{{ q.label }} ({{ q.type }})</span>
+      <button type="button" (click)="moveUp(i)" [disabled]="i === 0">↑</button>
+      <button type="button" (click)="moveDown(i)" [disabled]="i === questions.length - 1">↓</button>
+      <button type="button" (click)="removeQuestion(i)">✕</button>
+    </div>
+    <form [formGroup]="newQuestionForm" (ngSubmit)="addQuestion()" class="new-question">
+      <label>
+        Label
+        <input formControlName="label" />
+      </label>
+      <label>
+        Type
+        <select formControlName="type">
+          <option value="text">Text</option>
+          <option value="textarea">Long Text</option>
+          <option value="radio">Radio</option>
+          <option value="checkbox">Checkbox</option>
+          <option value="dropdown">Dropdown</option>
+          <option value="date">Date</option>
+          <option value="file">File</option>
+          <option value="video">Video</option>
+        </select>
+      </label>
+      <label>
+        Required
+        <input type="checkbox" formControlName="required" />
+      </label>
+      <div formArrayName="options" *ngIf="['radio','checkbox','dropdown'].includes(newQuestionForm.value.type)">
+        <div *ngFor="let opt of options.controls; index as j">
+          <input [formControlName]="j" />
+          <button type="button" (click)="removeOption(j)">Remove</button>
+        </div>
+        <button type="button" (click)="addOption()">Add option</button>
+      </div>
+      <button type="submit" [disabled]="newQuestionForm.invalid">Add Question</button>
+    </form>
+  </div>
+
+  <div class="preview">
+    <h3>Preview</h3>
+    <form [formGroup]="previewForm">
+      <div *ngFor="let q of questions" class="preview-item">
+        <label [attr.for]="'q' + q.id">{{ q.label }}</label>
+        <ng-container [ngSwitch]="q.type">
+          <input *ngSwitchCase="'text'" [formControlName]="'q' + q.id" type="text" [required]="q.required" />
+          <textarea *ngSwitchCase="'textarea'" [formControlName]="'q' + q.id" [required]="q.required"></textarea>
+          <select *ngSwitchCase="'dropdown'" [formControlName]="'q' + q.id" [required]="q.required">
+            <option *ngFor="let o of q.options" [value]="o">{{ o }}</option>
+          </select>
+          <div *ngSwitchCase="'radio'">
+            <label *ngFor="let o of q.options">
+              <input type="radio" [value]="o" [formControlName]="'q' + q.id" [required]="q.required" /> {{ o }}
+            </label>
+          </div>
+          <div *ngSwitchCase="'checkbox'">
+            <label *ngFor="let o of q.options; index as cIndex">
+              <input type="checkbox" [formControlName]="'q' + q.id" /> {{ o }}
+            </label>
+          </div>
+          <input *ngSwitchCase="'date'" type="date" [formControlName]="'q' + q.id" [required]="q.required" />
+          <input *ngSwitchCase="'file'" type="file" [formControlName]="'q' + q.id" [required]="q.required" />
+          <input *ngSwitchCase="'video'" type="url" [formControlName]="'q' + q.id" [required]="q.required" placeholder="Video URL" />
+        </ng-container>
+      </div>
+    </form>
+  </div>
+</div>
