@@ -2,6 +2,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SurveyBuilderService } from './survey-builder.service';
+import {
+  TextQuestionComponent,
+  TextareaQuestionComponent,
+  RadioQuestionComponent,
+  CheckboxQuestionComponent,
+  DropdownQuestionComponent,
+  DateQuestionComponent,
+  FileQuestionComponent,
+  VideoQuestionComponent,
+} from './questions';
 
 export type QuestionType =
   | 'text'
@@ -26,7 +36,18 @@ export interface SurveyQuestion {
   templateUrl: './survey-builder.component.html',
   styleUrls: ['./survey-builder.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TextQuestionComponent,
+    TextareaQuestionComponent,
+    RadioQuestionComponent,
+    CheckboxQuestionComponent,
+    DropdownQuestionComponent,
+    DateQuestionComponent,
+    FileQuestionComponent,
+    VideoQuestionComponent,
+  ],
 })
 export class SurveyBuilderComponent {
   questions: SurveyQuestion[] = [];
