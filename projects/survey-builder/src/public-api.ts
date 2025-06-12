@@ -4,3 +4,4 @@
 
 export * from './lib/survey-builder.service';
 export * from './lib/survey-builder.component';
+export * from './lib/questions';

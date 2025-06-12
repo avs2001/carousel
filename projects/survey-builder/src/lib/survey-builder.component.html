@@ -54,44 +54,28 @@
         <label [attr.for]="'q' + q.id">{{ q.label }}</label>
         @switch (q.type) {
           @case ('text') {
-            <input [formControlName]="'q' + q.id" type="text" [required]="q.required" />
+            <lib-text-question [question]="q" [controlName]="'q' + q.id" />
           }
           @case ('textarea') {
-            <textarea [formControlName]="'q' + q.id" [required]="q.required"></textarea>
+            <lib-textarea-question [question]="q" [controlName]="'q' + q.id" />
           }
           @case ('dropdown') {
-            <select [formControlName]="'q' + q.id" [required]="q.required">
-              @for (o of q.options) {
-              <option [value]="o">{{ o }}</option>
-              }
-            </select>
+            <lib-dropdown-question [question]="q" [controlName]="'q' + q.id" />
           }
           @case ('radio') {
-            <div>
-              @for (o of q.options) {
-              <label>
-                <input type="radio" [value]="o" [formControlName]="'q' + q.id" [required]="q.required" /> {{ o }}
-              </label>
-              }
-            </div>
+            <lib-radio-question [question]="q" [controlName]="'q' + q.id" />
           }
           @case ('checkbox') {
-            <div>
-              @for (o of q.options; let cIndex = index) {
-              <label>
-                <input type="checkbox" [formControlName]="'q' + q.id" /> {{ o }}
-              </label>
-              }
-            </div>
+            <lib-checkbox-question [question]="q" [controlName]="'q' + q.id" />
           }
           @case ('date') {
-            <input type="date" [formControlName]="'q' + q.id" [required]="q.required" />
+            <lib-date-question [question]="q" [controlName]="'q' + q.id" />
           }
           @case ('file') {
-            <input type="file" [formControlName]="'q' + q.id" [required]="q.required" />
+            <lib-file-question [question]="q" [controlName]="'q' + q.id" />
           }
           @case ('video') {
-            <input type="url" [formControlName]="'q' + q.id" [required]="q.required" placeholder="Video URL" />
+            <lib-video-question [question]="q" [controlName]="'q' + q.id" />
           }
         }
       </div>
