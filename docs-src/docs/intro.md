@@ -12,13 +12,17 @@ npm install @avs2001/carousel
 
 ## Usage
 
-Import the module into your Angular application and use the `app-carousel` component.
+Import the standalone component and directives into your bootstrap configuration.
 
 ```
-@NgModule({
-  imports: [CarouselModule]
-})
-export class AppModule {}
+import {bootstrapApplication} from '@angular/platform-browser';
+import {AppComponent} from './app/app.component';
+import {CarouselComponent, CarouselItemDirective} from '@avs2001/carousel';
+
+bootstrapApplication(AppComponent, {
+  providers: [],
+  imports: [CarouselComponent, CarouselItemDirective]
+});
 ```
 
 Refer to the project README for more details.

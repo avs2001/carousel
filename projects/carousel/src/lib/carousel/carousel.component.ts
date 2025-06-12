@@ -8,14 +8,26 @@ import {
   Input,
   QueryList
 } from '@angular/core';
-import {CarouseItem, CAROUSEL_ITEM} from "./carousel-item.directive";
+import {CommonModule} from '@angular/common';
+import {CarouseItem, CAROUSEL_ITEM, CarouselItemDirective} from "./carousel-item.directive";
+import {CarouselScrollDirective} from '../carousel-scroll.directive';
+import {CarouselAutoScrollDirective} from '../carousel-auto-scroll.directive';
+import {CarouselDirective} from './carousel.directive';
 
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    CarouselItemDirective,
+    CarouselScrollDirective,
+    CarouselAutoScrollDirective,
+    CarouselDirective,
+  ]
 })
 export class CarouselComponent {
   @Input() display = 1;

@@ -8,13 +8,21 @@ import { CarouselAutoScrollDirective } from '../carousel-auto-scroll.directive';
 import { CarouselScrollDirective } from '../carousel-scroll.directive';
 
 @Component({
+  standalone: true,
   template: `
     <app-carousel [display]="1" [index]="0">
       <ng-template appCarouselItem>Item 1</ng-template>
       <ng-template appCarouselItem>Item 2</ng-template>
       <ng-template appCarouselItem>Item 3</ng-template>
     </app-carousel>
-  `
+  `,
+  imports: [
+    CarouselComponent,
+    CarouselDirective,
+    CarouselItemDirective,
+    CarouselScrollDirective,
+    CarouselAutoScrollDirective,
+  ]
 })
 class HostComponent { }
 
@@ -24,14 +32,7 @@ describe('CarouselComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        HostComponent,
-        CarouselComponent,
-        CarouselDirective,
-        CarouselItemDirective,
-        CarouselScrollDirective,
-        CarouselAutoScrollDirective,
-      ]
+      imports: [HostComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HostComponent);

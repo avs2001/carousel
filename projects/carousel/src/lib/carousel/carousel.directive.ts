@@ -14,6 +14,7 @@ import {
 
 @Directive({
   selector: 'app-carousel',
+  standalone: true,
 })
 export class CarouselDirective extends Observable<unknown> {
 
