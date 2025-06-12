@@ -30,6 +30,15 @@ ng build survey-builder
 
 Include `<lib-survey-builder>` in your standalone Angular components to allow administrators to create surveys. The builder supports editing, drag-and-drop ordering, duplication, advanced validation and import/export of survey definitions.
 
+## Example application
+
+The `projects/example` Angular app demonstrates the carousel components and also
+contains a basic `<lib-survey-builder>` instance. Run it with:
+
+```bash
+ng serve example
+```
+
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
