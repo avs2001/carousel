@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SurveyBuilderService } from './survey-builder.service';
 
 export type QuestionType =
@@ -24,6 +25,8 @@ export interface SurveyQuestion {
   selector: 'lib-survey-builder',
   templateUrl: './survey-builder.component.html',
   styleUrls: ['./survey-builder.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class SurveyBuilderComponent {
   questions: SurveyQuestion[] = [];

@@ -11,10 +11,10 @@ This library provides a basic survey builder for Angular applications. It allows
 - Live preview of the generated form
 - Draft persistence using `localStorage`
 
-The component is exported from `SurveyBuilderModule` and can be used as follows:
+The library provides the standalone `SurveyBuilderComponent` which can be used as follows:
 
 ```ts
-import { SurveyBuilderModule } from '@avs2001/survey-builder';
+import { SurveyBuilderComponent } from '@avs2001/survey-builder';
 ```
 
 In your template:
