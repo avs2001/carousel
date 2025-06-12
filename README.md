@@ -25,3 +25,16 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Documentation
+
+Documentation sources are stored under `docs-src/docs`. Generate the static site
+using [Docusaurus](https://docusaurus.io) with:
+
+```bash
+npx docusaurus build docs-src --out-dir docs
+```
+
+The resulting HTML will be written to the `docs/` directory, which is ignored by
+git. Deploy the contents of `docs/` to any static hosting service (for example
+GitHub Pages) to publish the documentation.
