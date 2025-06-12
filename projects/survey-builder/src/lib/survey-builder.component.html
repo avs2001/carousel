@@ -1,14 +1,16 @@
 <div class="survey-builder">
   <div class="question-editor">
-    <h3>Questions</h3>
-    @for (q of questions; let i = index) {
-    <div class="question-item">
-      <span>{{ q.label }} ({{ q.type }})</span>
-      <button type="button" (click)="moveUp(i)" [disabled]="i === 0">↑</button>
-      <button type="button" (click)="moveDown(i)" [disabled]="i === questions.length - 1">↓</button>
-      <button type="button" (click)="removeQuestion(i)">✕</button>
+    <h3>{{ i18n.t('questions') }}</h3>
+    <div cdkDropList (cdkDropListDropped)="drop($event)">
+      @for (q of questions; let i = index) {
+      <div class="question-item" cdkDrag>
+        <span>{{ q.label }} ({{ q.type }})</span>
+        <button type="button" (click)="editQuestion(i)">{{ i18n.t('edit') }}</button>
+        <button type="button" (click)="duplicateQuestion(i)">{{ i18n.t('duplicate') }}</button>
+        <button type="button" (click)="removeQuestion(i)">{{ i18n.t('remove') }}</button>
+      </div>
+      }
     </div>
-    }
     <form [formGroup]="newQuestionForm" (ngSubmit)="addQuestion()" class="new-question">
       <label>
         Label
@@ -25,29 +27,52 @@
           <option value="date">Date</option>
           <option value="file">File</option>
           <option value="video">Video</option>
+          <option value="yesno">Yes/No</option>
         </select>
       </label>
       <label>
         Required
         <input type="checkbox" formControlName="required" />
       </label>
+      <label>
+        Min Length
+        <input type="number" formControlName="minLength" />
+      </label>
+      <label>
+        Pattern
+        <input formControlName="pattern" />
+      </label>
       @if (['radio','checkbox','dropdown'].includes(newQuestionForm.value.type)) {
       <div formArrayName="options">
         @for (opt of options.controls; let j = index) {
         <div>
           <input [formControlName]="j" />
-          <button type="button" (click)="removeOption(j)">Remove</button>
+          <button type="button" (click)="removeOption(j)">{{ i18n.t('removeOption') }}</button>
         </div>
         }
-        <button type="button" (click)="addOption()">Add option</button>
+        <button type="button" (click)="addOption()">{{ i18n.t('addOption') }}</button>
       </div>
       }
-      <button type="submit" [disabled]="newQuestionForm.invalid">Add Question</button>
+      <div class="actions">
+        <button type="submit" [disabled]="newQuestionForm.invalid">
+          {{ editingIndex !== null ? i18n.t('updateQuestion') : i18n.t('addQuestion') }}
+        </button>
+        @if (editingIndex !== null) {
+        <button type="button" (click)="cancelEdit()">{{ i18n.t('cancel') }}</button>
+        }
+      </div>
     </form>
+    <div class="io-actions">
+      <button type="button" (click)="exportSurvey()">{{ i18n.t('exportJson') }}</button>
+      <label class="import-label">
+        {{ i18n.t('importJson') }}
+        <input type="file" (change)="importSurvey($event)" />
+      </label>
+    </div>
   </div>
 
   <div class="preview">
-    <h3>Preview</h3>
+    <h3>{{ i18n.t('preview') }}</h3>
     <form [formGroup]="previewForm">
       @for (q of questions) {
       <div class="preview-item">
@@ -76,6 +101,9 @@
           }
           @case ('video') {
             <lib-video-question [question]="q" [controlName]="'q' + q.id" />
+          }
+          @case ('yesno') {
+            <lib-yesno-question [question]="q" [controlName]="'q' + q.id" />
           }
         }
       </div>

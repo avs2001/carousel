@@ -1,6 +1,14 @@
+:host {
+  --sb-bg: #fff;
+  --sb-border: #ccc;
+}
+
 .survey-builder {
   display: flex;
   gap: 2rem;
+  background-color: var(--sb-bg);
+  border: 1px solid var(--sb-border);
+  padding: 1rem;
 }
 
 .question-editor,
@@ -20,6 +28,22 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .io-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    .import-label input {
+      display: none;
+    }
+  }
 }
 
 .preview-item {

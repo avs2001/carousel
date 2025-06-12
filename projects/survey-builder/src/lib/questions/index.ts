@@ -6,3 +6,4 @@ export * from './dropdown-question.component';
 export * from './date-question.component';
 export * from './file-question.component';
 export * from './video-question.component';
+export * from './yesno-question.component';
