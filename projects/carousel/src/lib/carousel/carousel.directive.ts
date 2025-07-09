@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Inject, Input, signal, computed} from '@angular/core';
+import {Directive, ElementRef, Input, signal, computed, inject} from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import {
   EMPTY,
@@ -16,33 +16,33 @@ import {
 })
 export class CarouselDirective extends Observable<unknown> {
 
-  private readonly duration = signal(0);
+  private readonly durationSignal = signal(0);
   private readonly running = signal(false);
-
-  private readonly output$ = toObservable(
-    computed(() => ({duration: this.duration(), running: this.running()}))
-  ).pipe(
-    switchMap(({duration, running}) =>
-      duration && running ? interval(duration) : EMPTY,
-    ),
-  );
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   @Input()
   set duration(duration: number) {
-    this.duration.set(duration);
+    this.durationSignal.set(duration);
   }
 
-  constructor(
-    @Inject(ElementRef) private readonly elementRef: ElementRef<HTMLElement>,
-  ) {
+  constructor() {
+    // Create output$ in constructor where injection context is available
+    const output$ = toObservable(
+      computed(() => ({duration: this.durationSignal(), running: this.running()}))
+    ).pipe(
+      switchMap(({duration, running}) =>
+        duration && running ? interval(duration) : EMPTY,
+      ),
+    );
+    
+    super(subscriber => output$.subscribe(subscriber));
+    
     merge(
       fromEvent(this.elementRef.nativeElement, 'mouseenter').pipe(mapTo(false)),
       fromEvent(this.elementRef.nativeElement, 'touchstart').pipe(mapTo(false)),
       fromEvent(this.elementRef.nativeElement, 'touchend').pipe(mapTo(true)),
       fromEvent(this.elementRef.nativeElement, 'mouseleave').pipe(mapTo(true)),
     ).subscribe(v => this.running.set(v));
-
-    super(subscriber => this.output$.subscribe(subscriber));
   }
 
 }

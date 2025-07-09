@@ -5,6 +5,7 @@ import {
   ContentChildren,
   HostBinding,
   Inject,
+  Input,
   input,
   Signal,
   signal,
@@ -34,7 +35,16 @@ import {CarouselDirective} from './carousel.directive';
 })
 export class CarouselComponent {
   readonly display = input<number>(1);
-  readonly index = input<number>(0);
+  private readonly _index = signal<number>(0);
+  
+  readonly index = this._index.asReadonly();
+
+  @Input()
+  set indexValue(value: number) {
+    if (value !== undefined && value !== null) {
+      this._index.set(value);
+    }
+  }
 
   @ContentChildren(CAROUSEL_ITEM)
   readonly items: QueryList<CarouseItem> = new QueryList<CarouseItem>();
@@ -78,10 +88,10 @@ export class CarouselComponent {
   private updateIndex(index: number) {
     const screens = Math.ceil(this.items.length / this.display());
     if (screens - 1 === this.index()) {
-      this.index.set(0);
+      this._index.set(0);
       return;
     }
-    this.index.set(clamp(index, 0, screens - 1));
+    this._index.set(clamp(index, 0, screens - 1));
     this.changeDetectorRef.markForCheck();
   }
 
