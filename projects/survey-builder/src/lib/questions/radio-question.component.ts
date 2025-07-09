@@ -9,7 +9,7 @@ import { SurveyQuestion } from '../survey-builder.component';
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div>
-      @for (o of question.options) {
+      @for (o of question.options; track o) {
         <label>
           <input type="radio" [value]="o" [formControlName]="controlName" [required]="question.required" /> {{ o }}
         </label>
