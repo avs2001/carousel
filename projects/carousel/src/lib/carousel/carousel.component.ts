@@ -34,7 +34,7 @@ import {CarouselDirective} from './carousel.directive';
 })
 export class CarouselComponent {
   readonly display = input<number>(1);
-  readonly index = input<number>(0);
+  readonly indexSignal = signal<number>(0);
 
   @ContentChildren(CAROUSEL_ITEM)
   readonly items: QueryList<CarouseItem> = new QueryList<CarouseItem>();
@@ -54,34 +54,34 @@ export class CarouselComponent {
   });
 
   private calcTranslate(): number {
-    return -this.index() / this.display();
+    return -this.indexSignal() / this.display();
   }
 
   next() {
-    this.updateIndex(this.index() + 1);
+    this.updateIndex(this.indexSignal() + 1);
   }
 
   prev() {
-    this.updateIndex(this.index() - 1);
+    this.updateIndex(this.indexSignal() - 1);
   }
 
 
   onScroll(delta: number) {
-    this.updateIndex(this.index() + delta);
+    this.updateIndex(this.indexSignal() + delta);
   }
 
   onAutoscroll(): void {
     console.log('ON AUTOSCROLL');
-    this.updateIndex(this.index() === this.items.length - 1 ? 0 : this.index() + 1);
+    this.updateIndex(this.indexSignal() === this.items.length - 1 ? 0 : this.indexSignal() + 1);
   }
 
   private updateIndex(index: number) {
     const screens = Math.ceil(this.items.length / this.display());
-    if (screens - 1 === this.index()) {
-      this.index.set(0);
+    if (screens - 1 === this.indexSignal()) {
+      this.indexSignal.set(0);
       return;
     }
-    this.index.set(clamp(index, 0, screens - 1));
+    this.indexSignal.set(clamp(index, 0, screens - 1));
     this.changeDetectorRef.markForCheck();
   }
 

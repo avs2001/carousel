@@ -16,11 +16,11 @@ import {
 })
 export class CarouselDirective extends Observable<unknown> {
 
-  private readonly duration = signal(0);
+  private readonly durationSignal = signal(0);
   private readonly running = signal(false);
 
   private readonly output$ = toObservable(
-    computed(() => ({duration: this.duration(), running: this.running()}))
+    computed(() => ({duration: this.durationSignal(), running: this.running()}))
   ).pipe(
     switchMap(({duration, running}) =>
       duration && running ? interval(duration) : EMPTY,
@@ -29,20 +29,20 @@ export class CarouselDirective extends Observable<unknown> {
 
   @Input()
   set duration(duration: number) {
-    this.duration.set(duration);
+    this.durationSignal.set(duration);
   }
 
   constructor(
     @Inject(ElementRef) private readonly elementRef: ElementRef<HTMLElement>,
   ) {
+    super(subscriber => this.output$.subscribe(subscriber));
+    
     merge(
       fromEvent(this.elementRef.nativeElement, 'mouseenter').pipe(mapTo(false)),
       fromEvent(this.elementRef.nativeElement, 'touchstart').pipe(mapTo(false)),
       fromEvent(this.elementRef.nativeElement, 'touchend').pipe(mapTo(true)),
       fromEvent(this.elementRef.nativeElement, 'mouseleave').pipe(mapTo(true)),
     ).subscribe(v => this.running.set(v));
-
-    super(subscriber => this.output$.subscribe(subscriber));
   }
 
 }

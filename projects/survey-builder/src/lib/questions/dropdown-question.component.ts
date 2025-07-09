@@ -9,7 +9,7 @@ import { SurveyQuestion } from '../survey-builder.component';
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <select [formControlName]="controlName" [required]="question.required">
-      @for (o of question.options) {
+      @for (o of question.options; track o) {
         <option [value]="o">{{ o }}</option>
       }
     </select>

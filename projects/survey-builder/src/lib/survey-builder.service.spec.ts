@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { SurveyBuilderService } from './survey-builder.service';
+import { SurveyQuestion } from './survey-builder.component';
 
 describe('SurveyBuilderService', () => {
   let service: SurveyBuilderService;
@@ -11,8 +12,8 @@ describe('SurveyBuilderService', () => {
   });
 
   it('should save and load drafts', () => {
-    const questions = [{ id: 1, label: 'Q', type: 'text', required: false }];
-    service.saveDraft(questions as any);
+    const questions: SurveyQuestion[] = [{ id: 1, label: 'Q', type: 'text', required: false }];
+    service.saveDraft(questions);
     expect(service.loadDraft()).toEqual(questions);
   });
 });

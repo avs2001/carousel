@@ -9,7 +9,7 @@ import { SurveyQuestion } from '../survey-builder.component';
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div>
-      @for (o of question.options; let cIndex = index) {
+      @for (o of question.options; track o; let cIndex = $index) {
         <label>
           <input type="checkbox" [formControlName]="controlName" /> {{ o }}
         </label>
