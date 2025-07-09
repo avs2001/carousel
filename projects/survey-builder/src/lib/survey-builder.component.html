@@ -2,7 +2,7 @@
   <div class="question-editor">
     <h3>{{ i18n.t('questions') }}</h3>
     <div cdkDropList (cdkDropListDropped)="drop($event)">
-      @for (q of questions; let i = index) {
+      @for (q of questions(); let i = $index; track q.id) {
       <div class="question-item" cdkDrag>
         <span>{{ q.label }} ({{ q.type }})</span>
         <button type="button" (click)="editQuestion(i)">{{ i18n.t('edit') }}</button>
@@ -44,7 +44,7 @@
       </label>
       @if (['radio','checkbox','dropdown'].includes(newQuestionForm.value.type)) {
       <div formArrayName="options">
-        @for (opt of options.controls; let j = index) {
+        @for (opt of options.controls; let j = $index; track j) {
         <div>
           <input [formControlName]="j" />
           <button type="button" (click)="removeOption(j)">{{ i18n.t('removeOption') }}</button>
@@ -55,9 +55,9 @@
       }
       <div class="actions">
         <button type="submit" [disabled]="newQuestionForm.invalid">
-          {{ editingIndex !== null ? i18n.t('updateQuestion') : i18n.t('addQuestion') }}
+          {{ editingIndex() !== null ? i18n.t('updateQuestion') : i18n.t('addQuestion') }}
         </button>
-        @if (editingIndex !== null) {
+        @if (editingIndex() !== null) {
         <button type="button" (click)="cancelEdit()">{{ i18n.t('cancel') }}</button>
         }
       </div>
@@ -74,7 +74,7 @@
   <div class="preview">
     <h3>{{ i18n.t('preview') }}</h3>
     <form [formGroup]="previewForm">
-      @for (q of questions) {
+      @for (q of questions(); track q.id) {
       <div class="preview-item">
         <label [attr.for]="'q' + q.id">{{ q.label }}</label>
         @switch (q.type) {

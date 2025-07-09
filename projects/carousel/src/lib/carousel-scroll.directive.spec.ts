@@ -29,7 +29,8 @@ describe('CarouselScrollDirective', () => {
     directive.appCarouselScroll.subscribe(v => values.push(v));
     const el = fixture.debugElement.query(By.directive(CarouselScrollDirective)).nativeElement;
     el.dispatchEvent(new WheelEvent('wheel', { deltaX: 30 }));
-    tick(0);
+    tick(500); // Wait for throttleTime
     expect(values).toEqual([1]);
+    tick(500); // Ensure no more timers are pending
   }));
 });

@@ -10,7 +10,7 @@ import { CarouselScrollDirective } from '../carousel-scroll.directive';
 @Component({
   standalone: true,
   template: `
-    <app-carousel [display]="1" [index]="0">
+    <app-carousel [display]="1">
       <ng-template appCarouselItem>Item 1</ng-template>
       <ng-template appCarouselItem>Item 2</ng-template>
       <ng-template appCarouselItem>Item 3</ng-template>
@@ -47,15 +47,15 @@ describe('CarouselComponent', () => {
 
   it('should advance to next and previous item', () => {
     component.next();
-    expect(component.index()).toBe(1);
+    expect(component.indexSignal()).toBe(1);
     component.prev();
-    expect(component.index()).toBe(0);
+    expect(component.indexSignal()).toBe(0);
   });
 
   it('should wrap around when reaching the end', () => {
-    component.index.set(2);
+    component.indexSignal.set(2);
     fixture.detectChanges();
     component.next();
-    expect(component.index()).toBe(0);
+    expect(component.indexSignal()).toBe(0);
   });
 });
